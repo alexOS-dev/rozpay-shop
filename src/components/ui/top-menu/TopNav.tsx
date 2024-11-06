@@ -11,7 +11,9 @@ import {
 import { Menu, Home, Phone, Tag } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
+import { titleFont } from '@/config/fonts';
 import { cn } from '@/lib/utils';
+
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -28,7 +30,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { titleFont } from '@/config/fonts';
 
 const categories = [
   {
