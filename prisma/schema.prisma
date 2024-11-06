@@ -1,0 +1,202 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  admin
+  salesman
+  user
+}
+
+model ProductCondition {
+  id      String    @id @default(cuid())
+  name    String    @unique
+  Product Product[]
+}
+
+model Color {
+  id   String @id @default(cuid())
+  name String @unique
+  hex  String // Código hexadecimal para el color
+
+  OrderItem OrderItem[]
+  Product   Product[]
+}
+
+model Category {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  Product Product[]
+}
+
+model Product {
+  id          String   @id
+  title       String
+  description String
+  inStock     Int
+  price       Float    @default(0)
+  slug        String   @unique
+  tags        String[] @default([])
+
+  condition   ProductCondition @relation(fields: [conditionId], references: [id])
+  conditionId String
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  ProductImage ProductImage[]
+  OrderItem    OrderItem[]
+  Brand        Brand?         @relation(fields: [brandId], references: [id])
+  brandId      String?
+  Favorite     Favorite[]
+  Color        Color?         @relation(fields: [colorId], references: [id])
+  colorId      String?
+
+  @@index([slug])
+}
+
+model ProductImage {
+  id  Int    @id @default(autoincrement())
+  url String
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+}
+
+model City {
+  id         Int      @id @default(autoincrement())
+  name       String
+  province   Province @relation(fields: [provinceId], references: [id])
+  provinceId String // Relación con la provincia
+
+  users User[] // Relación uno-a-muchos con usuarios
+}
+
+model Province {
+  id           String         @id
+  name         String
+  cities       City[] // Relación uno-a-muchos con ciudades
+  UserAddress  UserAddress[]
+  OrderAddress OrderAddress[]
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  lastName      String
+  userName      String?   @unique
+  email         String    @unique
+  emailVerified DateTime?
+  password      String
+  role          Role      @default(user)
+  image         String?
+  dni           String?   @unique
+  phone         String?
+
+  city   City? @relation(fields: [cityId], references: [id])
+  cityId Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  address UserAddress?
+
+  Order    Order[]
+  Favorite Favorite[]
+}
+
+model UserAddress {
+  id         String  @id
+  firstName  String
+  lastName   String
+  address    String
+  address2   String?
+  postalCode String
+  phone      String
+  city       String
+
+  province   Province @relation(fields: [provinceId], references: [id])
+  provinceId String // Relación con la provincia
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+}
+
+model Order {
+  id           String    @id
+  subTotal     Float
+  tax          Float
+  total        Float
+  itemsInOrder Int
+  isPaid       Boolean   @default(false)
+  paidAt       DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  OrderItem    OrderItem[]
+  OrderAddress OrderAddress?
+
+  transactionId String?
+}
+
+model OrderItem {
+  id       String @id
+  quantity Int
+  price    Float
+  color    Color  @relation(fields: [colorId], references: [id])
+
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId String
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  colorId   String
+}
+
+model OrderAddress {
+  id         String  @id
+  firstName  String
+  lastName   String
+  address    String
+  address2   String?
+  postalCode String
+  city       String
+  phone      String
+
+  province   Province @relation(fields: [provinceId], references: [id])
+  provinceId String
+
+  Order   Order  @relation(fields: [orderId], references: [id])
+  orderId String @unique
+}
+
+model Brand {
+  id   String @id
+  name String @unique
+  slug String @unique
+
+  Product Product[]
+
+  @@index([name])
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
+}
