@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, Linkedin } from 'lucide-react';
 import { titleFont } from '@/config/fonts';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -37,7 +40,7 @@ export default function ContactPage() {
           <span
             className={`${titleFont.className} antialiased font-bold text-3xl animate-pulse`}
           >
-            NEA
+            RozPay
           </span>
           <span className='text-3xl font-bold'>| Shop</span>
         </div>
@@ -153,17 +156,17 @@ export default function ContactPage() {
           {/* Contact Form */}
           <div className='bg-white rounded-2xl shadow-lg p-8'>
             <h2 className='text-2xl font-semibold text-gray-800 mb-6'>
-              Send Us a Message
+              Envíanos un mensaje
             </h2>
             <form onSubmit={handleSubmit} className='space-y-6'>
               <div>
-                <label
+                <Label
                   htmlFor='name'
                   className='block text-sm font-medium text-gray-700 mb-1'
                 >
-                  Your Name
-                </label>
-                <input
+                  Tu nombre
+                </Label>
+                <Input
                   type='text'
                   id='name'
                   name='name'
@@ -175,13 +178,13 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label
+                <Label
                   htmlFor='email'
                   className='block text-sm font-medium text-gray-700 mb-1'
                 >
-                  Email Address
-                </label>
-                <input
+                  Correo Electrónico
+                </Label>
+                <Input
                   type='email'
                   id='email'
                   name='email'
@@ -193,13 +196,13 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label
+                <Label
                   htmlFor='subject'
                   className='block text-sm font-medium text-gray-700 mb-1'
                 >
-                  Subject
-                </label>
-                <input
+                  Asunto
+                </Label>
+                <Input
                   type='text'
                   id='subject'
                   name='subject'
@@ -211,13 +214,13 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label
+                <Label
                   htmlFor='message'
                   className='block text-sm font-medium text-gray-700 mb-1'
                 >
-                  Message
-                </label>
-                <textarea
+                  Mensaje
+                </Label>
+                <Textarea
                   id='message'
                   name='message'
                   value={formData.message}
@@ -225,7 +228,7 @@ export default function ContactPage() {
                   rows={4}
                   className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none'
                   required
-                ></textarea>
+                ></Textarea>
               </div>
 
               <button
@@ -233,7 +236,7 @@ export default function ContactPage() {
                 className='w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2 font-medium'
               >
                 <Send className='w-5 h-5' />
-                <span>Send Message</span>
+                <span>Enviar Mensaje</span>
               </button>
             </form>
           </div>
