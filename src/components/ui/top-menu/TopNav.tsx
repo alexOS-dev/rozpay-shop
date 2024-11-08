@@ -50,7 +50,7 @@ const categories = [
   {
     title: 'Accessories',
     items: ['Phone Cases', 'Screen Protectors', 'Chargers', 'Headphones'],
-    href: '/articulos/accesory',
+    href: '/articulos/accessory',
   },
 ];
 
