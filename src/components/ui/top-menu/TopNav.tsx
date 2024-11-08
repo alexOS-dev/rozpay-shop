@@ -35,18 +35,22 @@ const categories = [
   {
     title: 'Smartphones',
     items: ['iPhones', 'Android Phones', 'Refurbished Phones'],
+    href: '/articulos/smartphone',
   },
   {
     title: 'Tablets',
     items: ['iPads', 'Android Tablets', 'Windows Tablets'],
+    href: '/articulos/tablet',
   },
   {
     title: 'Laptops',
     items: ['MacBooks', 'Windows Laptops', 'Chromebooks'],
+    href: '/articulos/laptop',
   },
   {
     title: 'Accessories',
     items: ['Phone Cases', 'Screen Protectors', 'Chargers', 'Headphones'],
+    href: '/articulos/accesory',
   },
 ];
 
@@ -118,7 +122,11 @@ export default function TopNav() {
                   <NavigationMenuContent>
                     <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]'>
                       {categories.map((category) => (
-                        <ListItem key={category.title} title={category.title}>
+                        <ListItem
+                          key={category.title}
+                          title={category.title}
+                          href={category.href}
+                        >
                           {category.items.join(', ')}
                         </ListItem>
                       ))}
