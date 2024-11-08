@@ -14,7 +14,7 @@ export default function CheckoutPage() {
           {/* Carrito */}
           <div className='flex flex-col mt-5'>
             <span className='text-xl'>Ajustar elementos</span>
-            <Link href='/cartv2' className='underline mb-5'>
+            <Link href='/cart' className='underline mb-5'>
               Editar carrito
             </Link>
 
