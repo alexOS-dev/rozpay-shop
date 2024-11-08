@@ -1,52 +1,52 @@
-"use client";
+'use client';
 
-import { useCartStore } from "@/store";
-import { currencyFormat } from "@/utils";
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from 'react';
+
+import { useCartStore } from '@/store';
+import { currencyFormat } from '@/utils';
 
 export const OrderSummary = () => {
+  const [isMounted, setIsMounted] = useState(false);
 
-  const router = useRouter();
-
-  const [loaded, setLoaded] = useState(false);
-  const { itemsInCart, subTotal, tax, total } = useCartStore((state) =>
-    state.getSummaryInformation()
-  );
-
+  // Detectar si el componente está montado para evitar problemas de hidratación
   useEffect(() => {
-    setLoaded(true);
+    setIsMounted(true);
   }, []);
 
+  const productsInCart = useCartStore((state) => state.cart);
 
-  useEffect(() => {
+  // Memoizar el cálculo del resumen
+  const summary = useMemo(() => {
+    return useCartStore.getState().getSummaryInformation();
+  }, [productsInCart]);
 
-    if ( itemsInCart === 0 && loaded === true )   {
-      router.replace('/empty')
-    }
+  const { itemsInCart, subTotal, tax, total } = summary;
 
-
-  },[ itemsInCart, loaded, router ])
-
-
-
-  if (!loaded) return <p>Loading...</p>;
+  // Mostrar un loader o algún placeholder hasta que se monte el componente
+  if (!isMounted) {
+    return <div>Cargando...</div>; // Puedes agregar un Skeleton aquí si prefieres
+  }
 
   return (
-    <div className="grid grid-cols-2">
-      <span>No. Productos</span>
-      <span className="text-right">
-        {itemsInCart === 1 ? "1 artículo" : `${itemsInCart} artículos`}
-      </span>
-
-      <span>Subtotal</span>
-      <span className="text-right">{currencyFormat(subTotal)}</span>
-
-      <span>Impuestos (15%)</span>
-      <span className="text-right">{currencyFormat(tax)}</span>
-
-      <span className="mt-5 text-2xl">Total:</span>
-      <span className="mt-5 text-2xl text-right">{currencyFormat(total)}</span>
+    <div className='grid gap-4'>
+      <div className='flex items-center justify-between'>
+        <span>No. Productos</span>
+        <span>
+          {itemsInCart === 1 ? '1 artículo' : `${itemsInCart} artículos`}
+        </span>
+      </div>
+      <div className='flex items-center justify-between'>
+        <span>Subtotal</span>
+        <span>{currencyFormat(subTotal)}</span>
+      </div>
+      <div className='flex items-center justify-between'>
+        <span>Impuestos (15%)</span>
+        <span className='text-green-500'>{currencyFormat(tax)}</span>
+      </div>
+      <div className='flex items-center justify-between font-medium'>
+        <span>Total</span>
+        <span>{currencyFormat(total)}</span>
+      </div>
     </div>
   );
 };
