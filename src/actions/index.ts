@@ -37,7 +37,6 @@ export { updateStockProduct } from './product/update-stock-product';
 export { changeManyUsersRole } from './user/change-many-users-role';
 export { changeUserRole } from './user/change-user-role';
 export { getPaginatedUsers } from './user/get-paginated-users';
-export { updateUserEmail } from './user/update-user-email';
 
 export { addFavorite } from './favorites/add-favorite';
 export { getFavorites } from './favorites/get-favorites';

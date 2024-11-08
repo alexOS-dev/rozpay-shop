@@ -11,9 +11,9 @@ import { columns } from './ui/columns';
 export default async function OrdersPage() {
   const { ok, orders = [] } = await getOrdersByUser();
 
-  if (!ok) {
-    redirect('/auth/login');
-  }
+  // if (!ok) {
+  //   redirect('/auth/login');
+  // }
 
   return (
     <>

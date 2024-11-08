@@ -1,11 +1,5 @@
-export const revalidate = 60; // 60 segundos
+import { ProductGrid, ProductsPagination, Title } from '@/components';
 
-import { ProductGrid, Title } from '@/components';
-import { Pagination } from '@/components/ui/pagination/_old-Pagination';
-
-import { getPaginatedProductsWithImages } from '@/actions';
-
-import { redirect } from 'next/navigation';
 import { getCategoryPaginatedProductsWithImages } from '@/actions/product/product-category-pagination';
 
 interface Props {
@@ -56,7 +50,7 @@ export default async function GenderByPage({ params, searchParams }: Props) {
 
       <ProductGrid products={products} />
 
-      <Pagination totalPages={totalPages} />
+      <ProductsPagination totalPages={totalPages} />
     </>
   );
 }

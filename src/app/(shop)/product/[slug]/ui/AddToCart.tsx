@@ -42,7 +42,7 @@ export const AddToCart = ({ product }: Props) => {
     addProductToCart(cartProduct);
     setPosted(false);
     setQuantity(1);
-    router.push('/checkout');
+    router.push('/checkout/address');
   };
 
   // TODO: Check why on AddToCart execution, the fields not reset

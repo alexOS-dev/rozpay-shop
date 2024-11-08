@@ -61,6 +61,17 @@ export const initialData: SeedData = {
     },
     {
       id: nanoid(11),
+      email: 'invitado@google.com',
+      name: 'Invitado',
+      lastName: 'Invitado',
+      password: bcryptjs.hashSync('123456'),
+      role: 'user',
+      userName: '3213123x',
+      dni: '12343278',
+      phone: '3644123456',
+    },
+    {
+      id: nanoid(11),
       email: 'juan@google.com',
       name: 'Juan',
       lastName: 'Perez',

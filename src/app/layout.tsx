@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     default: 'Inicio - RozPay | Shop',
   },
   description: 'Una tienda virtual de productos',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({

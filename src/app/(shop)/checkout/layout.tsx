@@ -6,12 +6,12 @@ export default async function CheckoutLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
+  // const session = await auth();
 
-  if (!session?.user) {
-    // redirect('/auth/login?returnTo=/perfil');
-    redirect('/auth/login?redirectTo=/checkout/address');
-  }
+  // if (!session?.user) {
+  //   // redirect('/auth/login?returnTo=/perfil');
+  //   // redirect('/auth/login?redirectTo=/checkout/address');
+  // }
 
   return <>{children}</>;
 }
