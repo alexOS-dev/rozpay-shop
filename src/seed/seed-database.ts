@@ -1,5 +1,4 @@
 import prisma from '../lib/prisma';
-import { chacoCities } from './seed-cities';
 import { colors } from './seed-colors';
 import { initialData } from './seed';
 import { productConditions } from './seed-product-conditions';
@@ -13,10 +12,10 @@ async function main() {
 
   await prisma.userAddress.deleteMany();
   await prisma.favorite.deleteMany();
-  await prisma.productImage.deleteMany(); // Mover esta eliminación antes de los productos
-  await prisma.color.deleteMany(); // Si tienes una tabla intermedia para colores y productos
-  await prisma.product.deleteMany(); // Primero eliminar productos
-  await prisma.productCondition.deleteMany(); // Luego eliminar condiciones
+  await prisma.productImage.deleteMany();
+  await prisma.color.deleteMany();
+  await prisma.product.deleteMany();
+  await prisma.productCondition.deleteMany();
 
   await prisma.user.deleteMany();
   await prisma.city.deleteMany();
@@ -34,11 +33,6 @@ async function main() {
   // Provincias
   await prisma.province.createMany({
     data: provinces,
-  });
-
-  // Ciudades del Chaco
-  await prisma.city.createMany({
-    data: chacoCities,
   });
 
   // Marcas
@@ -91,49 +85,57 @@ async function main() {
     );
   }
 
-  const categoriesDB = await prisma.category.findMany();
-  console.log(categoriesDB);
-
-  const smartphonesCategoryId = await prisma.category.findUnique({
-    where: {
-      name: 'smartphone',
-    },
+  const allCategories = await prisma.category.findMany({
     select: {
       id: true,
+      name: true,
     },
   });
 
-  if (!smartphonesCategoryId) {
+  if (!allCategories) {
     throw new Error(
-      'No se encontró la categoría "smartphone". Verifica el nombre en la base de datos.'
+      'No se encontró ninguna categoría. Verifica el nombre en la base de datos.'
     );
   }
 
   // Obtener id de la marca Apple para luego asignarla a los productos
-  const appleBrand = await prisma.brand.findUnique({
-    where: {
-      name: 'Apple',
-    },
+  const allBrands = await prisma.brand.findMany({
     select: {
       id: true,
+      name: true,
     },
   });
 
-  const appleId = appleBrand?.id;
+  if (!allBrands) {
+    throw new Error(
+      'No se encontró ninguna marca. Verifica el nombre en la base de datos.'
+    );
+  }
 
   // Crear productos y guardar sus IDs
   const productIds: string[] = [];
 
   // Productos
   const productPromises = products.map(async (product) => {
-    const { type, images, ...rest } = product;
+    const { type, images, brand: productBrand, ...rest } = product;
+
+    // Find the category ID based on the 'type' property
+    const categoryId = allCategories.find(
+      (category) => category.name === type
+    )?.id;
+
+    const brandId = allBrands.find((brand) => brand.name === productBrand)?.id;
+
+    if (!categoryId) {
+      throw new Error(`No se encontró la categoría para el tipo "${type}"`);
+    }
 
     const dbProduct = await prisma.product.create({
       data: {
         ...rest,
-        categoryId: smartphonesCategoryId?.id,
-        brandId: appleId,
-        conditionId: productConditionNewId.id,
+        categoryId,
+        brandId,
+        conditionId: productConditionNewId!.id,
         colorId: colorWhiteId.id,
       },
     });
@@ -148,7 +150,6 @@ async function main() {
     });
 
     productIds.push(dbProduct.id);
-    // return dbProduct;
   });
 
   await Promise.all(productPromises);
