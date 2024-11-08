@@ -17,7 +17,7 @@ export const getPaginatedProductsWithImages = async ({
   category,
   min_price,
   max_price,
-  order,
+  order = 'desc',
 }: PaginationOptions) => {
   if (isNaN(Number(page))) page = 1;
   if (page < 1) page = 1;

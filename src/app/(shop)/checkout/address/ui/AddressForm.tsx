@@ -35,6 +35,7 @@ import type { Address, Province } from '@/interfaces';
 interface Props {
   provinces: Province[];
   userStoredAddress?: Partial<Address>;
+  userId: string;
 }
 
 const formSchema = z.object({
@@ -49,7 +50,11 @@ const formSchema = z.object({
   rememberAddress: z.boolean().default(false),
 });
 
-export const AddressForm = ({ provinces, userStoredAddress }: Props) => {
+export const AddressForm = ({
+  provinces,
+  userStoredAddress,
+  userId,
+}: Props) => {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -67,10 +72,6 @@ export const AddressForm = ({ provinces, userStoredAddress }: Props) => {
     },
   });
 
-  const { data: session } = useSession({
-    required: true,
-  });
-
   const setAddress = useAddressStore((state) => state.setAddress);
   const address = useAddressStore((state) => state.address);
   useEffect(() => {
@@ -85,10 +86,10 @@ export const AddressForm = ({ provinces, userStoredAddress }: Props) => {
     setAddress(restAddress);
 
     if (rememberAddress) {
-      await setUserAddress(restAddress, session!.user.id);
+      await setUserAddress(restAddress, userId);
     } else if (userStoredAddress) {
       // Solo eliminar si había una dirección almacenada previamente
-      await deleteUserAddress(session!.user.id);
+      await deleteUserAddress(userId);
     }
 
     router.push('/checkout');
@@ -108,7 +109,12 @@ export const AddressForm = ({ provinces, userStoredAddress }: Props) => {
               <FormItem>
                 <FormLabel>Nombre(s)</FormLabel>
                 <FormControl>
-                  <Input placeholder='Nombre' {...field} />
+                  <Input
+                    placeholder='Nombre'
+                    {...field}
+                    value={field.value}
+                    disabled
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -121,7 +127,12 @@ export const AddressForm = ({ provinces, userStoredAddress }: Props) => {
               <FormItem>
                 <FormLabel>Apellido(s)</FormLabel>
                 <FormControl>
-                  <Input placeholder='Apellido' {...field} />
+                  <Input
+                    placeholder='Apellido'
+                    {...field}
+                    value={field.value}
+                    disabled
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -134,7 +145,12 @@ export const AddressForm = ({ provinces, userStoredAddress }: Props) => {
               <FormItem>
                 <FormLabel>Dirección</FormLabel>
                 <FormControl>
-                  <Input placeholder='Dirección' {...field} />
+                  <Input
+                    placeholder='Dirección'
+                    {...field}
+                    value={field.value}
+                    disabled
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -147,7 +163,12 @@ export const AddressForm = ({ provinces, userStoredAddress }: Props) => {
               <FormItem>
                 <FormLabel>Dirección (opcional)</FormLabel>
                 <FormControl>
-                  <Input placeholder='Dirección' {...field} />
+                  <Input
+                    placeholder='Dirección'
+                    {...field}
+                    value={field.value}
+                    disabled
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -161,6 +182,7 @@ export const AddressForm = ({ provinces, userStoredAddress }: Props) => {
               <FormItem>
                 <FormLabel>Provincia</FormLabel>
                 <Select
+                  value={field.value.id}
                   onValueChange={(value) => {
                     const selectedProvince = provinces.find(
                       (p) => p.id === value
@@ -170,6 +192,7 @@ export const AddressForm = ({ provinces, userStoredAddress }: Props) => {
                       name: selectedProvince ? selectedProvince.name : '',
                     });
                   }}
+                  disabled
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -195,7 +218,12 @@ export const AddressForm = ({ provinces, userStoredAddress }: Props) => {
               <FormItem>
                 <FormLabel>Ciudad</FormLabel>
                 <FormControl>
-                  <Input placeholder='Ciudad' {...field} />
+                  <Input
+                    placeholder='Ciudad'
+                    {...field}
+                    value={field.value}
+                    disabled
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -209,7 +237,12 @@ export const AddressForm = ({ provinces, userStoredAddress }: Props) => {
               <FormItem>
                 <FormLabel>Código postal</FormLabel>
                 <FormControl>
-                  <Input placeholder='Código postal' {...field} />
+                  <Input
+                    placeholder='Código postal'
+                    {...field}
+                    value={field.value}
+                    disabled
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -223,7 +256,12 @@ export const AddressForm = ({ provinces, userStoredAddress }: Props) => {
               <FormItem>
                 <FormLabel>Teléfono</FormLabel>
                 <FormControl>
-                  <Input placeholder='Teléfono' {...field} />
+                  <Input
+                    placeholder='Teléfono'
+                    {...field}
+                    value={field.value}
+                    disabled
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -237,8 +275,9 @@ export const AddressForm = ({ provinces, userStoredAddress }: Props) => {
               <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
                 <FormControl>
                   <Checkbox
-                    checked={field.value}
+                    checked={true}
                     onCheckedChange={field.onChange}
+                    disabled
                   />
                 </FormControl>
                 <div className='space-y-1 leading-none'>

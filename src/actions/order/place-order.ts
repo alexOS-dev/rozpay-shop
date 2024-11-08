@@ -16,19 +16,13 @@ export const placeOrder = async (
   productIds: ProductToOrder[],
   address: Address
 ) => {
-  const session = await auth();
-  const userId = session?.user.id;
+  const guestUser = await prisma.user.findFirst({
+    where: {
+      name: 'Invitado',
+    },
+  });
+  const userId = guestUser!.id;
 
-  // Verificar sesión de usuario
-  if (!userId) {
-    return {
-      ok: false,
-      message: 'No hay sesión de usuario',
-    };
-  }
-
-  // Obtener la información de los productos
-  // Nota: recuerden que podemos llevar 2+ productos con el mismo ID
   const products = await prisma.product.findMany({
     where: {
       id: {
