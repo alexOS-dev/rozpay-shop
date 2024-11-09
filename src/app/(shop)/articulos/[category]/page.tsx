@@ -35,9 +35,9 @@ export default async function GenderByPage({ params, searchParams }: Props) {
 
   const labelsSubtitle: Record<string, string> = {
     smartphone: 'Todos los celulares',
-    tablet: 'Todos los tablets',
+    tablet: 'Todas las tablets',
     accessory: 'Todos los accesorios',
-    laptop: 'Todos las notebooks',
+    laptop: 'Todas las notebooks',
   };
 
   return (
