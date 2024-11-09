@@ -25,6 +25,7 @@ interface Props {
     min?: string;
     max?: string;
     category?: string;
+    brand?: string;
     order?: 'asc' | 'desc';
   };
 }
@@ -34,6 +35,7 @@ export default async function HomePage({ searchParams }: Props) {
   const min_price = searchParams.min ? parseFloat(searchParams.min) : undefined;
   const max_price = searchParams.max ? parseFloat(searchParams.max) : undefined;
   const category = searchParams.category;
+  const brand = searchParams.brand;
   const order = searchParams.order as 'asc' | 'desc' | undefined;
 
   const { products, currentPage, totalPages } =
@@ -43,6 +45,7 @@ export default async function HomePage({ searchParams }: Props) {
       max_price,
       category,
       order,
+      brand,
     });
 
   if (products.length === 0) {
