@@ -15,6 +15,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@prisma/client": "^5.21.1",
+    "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-checkbox": "^1.1.1",
@@ -65,11 +66,11 @@
     "zustand": "5.0.0-rc.2"
   },
   "devDependencies": {
-    "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/bcryptjs": "^2.4.6",
     "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^22.5.5",
     "@types/react": "^18.3.8",
+    "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/react-dom": "^18.3.0",
     "@types/recharts": "^1.8.29",
     "autoprefixer": "^10.4.20",
