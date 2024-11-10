@@ -11,10 +11,5 @@ export const BrandSelector = async () => {
     toast.error(message);
   }
 
-  return (
-    <div>
-      <Label className='text-sm'>Marcas</Label>
-      <BrandItem brands={brands ?? []} />
-    </div>
-  );
+  return <BrandItem brands={brands ?? []} />;
 };
