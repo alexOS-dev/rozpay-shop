@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { Truck } from 'lucide-react';
 
 import type { Product } from '@/interfaces';
 import { cn } from '@/lib/utils';
@@ -52,7 +53,14 @@ export const ProductGridItem = ({ product }: Props) => {
           >
             {product.title}
           </Link>
+
           <span className='font-bold'>${product.price}</span>
+          {product.price >= 40 && (
+            <span className='font-medium flex items-center gap-2'>
+              <Truck className='w-4 h-4 text-green-500' />
+              Envío Gratis
+            </span>
+          )}
         </div>
       </div>
     </div>
