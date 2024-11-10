@@ -24,10 +24,12 @@ export * from './ui/data-table/DataTableViewOptions';
 
 export * from './search/search-bar';
 
+export * from './filters/accordion-filter';
 export * from './filters/brand-selector';
-export * from './filters/color-toggle';
-export * from './filters/free-shipping-switch';
 export * from './filters/category-selector';
+export * from './filters/color-toggle';
+export * from './filters/FilterContent';
+export * from './filters/free-shipping-switch';
 export * from './filters/offer-products-switch';
 export * from './filters/price-filter';
 export * from './filters/product-order-selector';
