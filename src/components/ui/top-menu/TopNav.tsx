@@ -8,7 +8,7 @@ import {
   useState,
 } from 'react';
 
-import { Menu, Home, Phone, Tag, List } from 'lucide-react';
+import { Menu, Home, Phone, List } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 import { titleFont } from '@/config/fonts';
@@ -135,16 +135,7 @@ export default function TopNav() {
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <Link href='/offers' legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                    >
-                      <Tag className='w-4 h-4 mr-2' />
-                      Ofertas
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
+
                 <NavigationMenuItem>
                   <Link href='/contact' legacyBehavior passHref>
                     <NavigationMenuLink
@@ -158,37 +149,20 @@ export default function TopNav() {
               </NavigationMenuList>
             </NavigationMenu>
             <div className='flex items-center space-x-2'>
-              <Link
-                href='https://facebook.com'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <Button variant='ghost' size='icon' aria-label='Facebook'>
-                  <FaFacebook className='h-4 w-4' fill='blue' />
-                </Button>
-              </Link>
-              <Link
-                href='https://twitter.com'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <Button variant='ghost' size='icon' aria-label='Twitter'>
-                  <FaWhatsapp className='h-4 w-4 text-green-500' />
-                </Button>
-              </Link>
+              <Button variant='ghost' size='icon' aria-label='Facebook'>
+                <FaFacebook className='h-4 w-4' fill='blue' />
+              </Button>
 
-              <Link
-                href='https://instagram.com'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <Button variant='ghost' size='icon' aria-label='Instagram'>
-                  <FaInstagram
-                    className='h-4 w-4'
-                    fill='url(#instagram-gradient)'
-                  />
-                </Button>
-              </Link>
+              <Button variant='ghost' size='icon' aria-label='Twitter'>
+                <FaWhatsapp className='h-4 w-4 text-green-500' />
+              </Button>
+
+              <Button variant='ghost' size='icon' aria-label='Instagram'>
+                <FaInstagram
+                  className='h-4 w-4'
+                  fill='url(#instagram-gradient)'
+                />
+              </Button>
             </div>
           </nav>
           <div className='md:hidden'>
@@ -255,15 +229,6 @@ export default function TopNav() {
             </li>
             <li>
               <Link
-                href='/offers'
-                className='block px-3 py-2 rounded-md text-base font-medium hover:bg-accent hover:text-accent-foreground'
-              >
-                <Tag className='inline-block w-4 h-4 mr-2' />
-                Ofertas
-              </Link>
-            </li>
-            <li>
-              <Link
                 href='/contact'
                 className='block px-3 py-2 rounded-md text-base font-medium hover:bg-accent hover:text-accent-foreground'
               >
@@ -273,36 +238,20 @@ export default function TopNav() {
             </li>
             <li className='px-3 py-2'>
               <div className='flex items-center space-x-2'>
-                <Link
-                  href='https://facebook.com'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <Button variant='ghost' size='icon' aria-label='Facebook'>
-                    <FaFacebook className='h-4 w-4' fill='blue' />
-                  </Button>
-                </Link>
-                <Link
-                  href='https://twitter.com'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <Button variant='ghost' size='icon' aria-label='Twitter'>
-                    <FaWhatsapp className='h-4 w-4 text-green-500' />
-                  </Button>
-                </Link>
-                <Link
-                  href='https://instagram.com'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <Button variant='ghost' size='icon' aria-label='Instagram'>
-                    <FaInstagram
-                      className='h-4 w-4'
-                      fill='url(#instagram-gradient)'
-                    />
-                  </Button>
-                </Link>
+                <Button variant='ghost' size='icon' aria-label='Facebook'>
+                  <FaFacebook className='h-4 w-4' fill='blue' />
+                </Button>
+
+                <Button variant='ghost' size='icon' aria-label='WhatsApp'>
+                  <FaWhatsapp className='h-4 w-4 text-green-500' />
+                </Button>
+
+                <Button variant='ghost' size='icon' aria-label='Instagram'>
+                  <FaInstagram
+                    className='h-4 w-4'
+                    fill='url(#instagram-gradient)'
+                  />
+                </Button>
               </div>
             </li>
           </ul>
