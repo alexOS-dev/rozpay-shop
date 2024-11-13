@@ -1,4 +1,4 @@
-# Rozpay | Shop
+# Caggy | Shop
 
 ## Getting Started
 

@@ -40,7 +40,7 @@ export default function ContactPage() {
           <span
             className={`${titleFont.className} antialiased font-bold text-3xl animate-pulse`}
           >
-            RozPay
+            Caggy
           </span>
           <span className='text-3xl font-bold'>| Shop</span>
         </div>

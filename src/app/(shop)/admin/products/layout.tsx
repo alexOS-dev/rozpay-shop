@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Productos - BIG | Shop',
+  title: 'Productos - Caggy | Shop',
   description: 'Gestión de productos',
 };
 

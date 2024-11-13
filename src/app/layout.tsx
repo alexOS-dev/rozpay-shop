@@ -7,10 +7,10 @@ import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s - RozPay | Shop',
-    default: 'Inicio - RozPay | Shop',
+    template: '%s - Caggy | Shop',
+    default: 'Inicio - Caggy | Shop',
   },
-  description: 'Una tienda virtual de productos',
+  description: 'Tu tienda de confianza tecnológica',
   icons: {
     icon: '/favicon.ico',
   },

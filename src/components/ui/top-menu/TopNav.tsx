@@ -102,7 +102,7 @@ export default function TopNav() {
         <div className='flex items-center justify-between h-16'>
           <Link href='/' className='text-2xl font-bold text-primary'>
             <span className={`${titleFont.className} antialiased font-bold`}>
-              RozPay
+              Caggy
             </span>
             <span> | Shop</span>
           </Link>

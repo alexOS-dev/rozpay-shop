@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Marcas - BIG | SHOP',
+  title: 'Marcas - Caggy | Shop',
   description: 'Gestión de marcas',
 };
 
