@@ -55,7 +55,7 @@ export const AddToCart = ({ product }: Props) => {
           onQuantityChanged={setQuantity}
           inStock={product.inStock}
         />
-        <div className='flex items-center gap-2'>
+        {/* <div className='flex items-center gap-2'>
           <Separator orientation='vertical' className='h-6' />
           <TooltipProductColor color={product.Color?.name ?? 'blanco'}>
             <Button size='icon' variant='ghost'>
@@ -68,7 +68,7 @@ export const AddToCart = ({ product }: Props) => {
           <span className='capitalize text-sm text-gray-700 dark:text-gray-500'>
             Color
           </span>
-        </div>
+        </div> */}
       </div>
 
       <div className='flex flex-col gap-2 min-[400px]:flex-row'>
