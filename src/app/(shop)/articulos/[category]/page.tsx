@@ -41,7 +41,7 @@ export default async function GenderByPage({ params, searchParams }: Props) {
   };
 
   return (
-    <>
+    <div className='px-2'>
       <Title
         title={labels[category] ?? 'Artículos'}
         subtitle={labelsSubtitle[category] ?? 'Todos los articulos'}
@@ -51,6 +51,6 @@ export default async function GenderByPage({ params, searchParams }: Props) {
       <ProductGrid products={products} />
 
       <ProductsPagination totalPages={totalPages} />
-    </>
+    </div>
   );
 }

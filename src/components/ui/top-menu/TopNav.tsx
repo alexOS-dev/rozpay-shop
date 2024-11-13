@@ -8,19 +8,14 @@ import {
   useState,
 } from 'react';
 
-import { Menu, Home, Phone, Tag } from 'lucide-react';
+import { Menu, Home, Phone, Tag, List } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 import { titleFont } from '@/config/fonts';
 import { cn } from '@/lib/utils';
 
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Button, buttonVariants } from '@/components/ui/button';
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -30,16 +25,23 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTrigger,
+} from '../drawer';
 
 const categories = [
   {
-    title: 'Smartphones',
-    items: ['iPhones', 'Android Phones', 'Refurbished Phones'],
+    title: 'Celulares',
+    items: ['iPhones', 'Celulares Android'],
     href: '/articulos/smartphone',
   },
   {
     title: 'Tablets',
-    items: ['iPads', 'Android Tablets', 'Windows Tablets'],
+    items: ['iPads', 'Android Tablets'],
     href: '/articulos/tablet',
   },
   {
@@ -48,8 +50,8 @@ const categories = [
     href: '/articulos/laptop',
   },
   {
-    title: 'Accessories',
-    items: ['Phone Cases', 'Screen Protectors', 'Chargers', 'Headphones'],
+    title: 'Accesorios',
+    items: ['Fundas', 'Protectores de pantalla', 'Cargadores', 'Auriculares'],
     href: '/articulos/accessory',
   },
 ];
@@ -214,22 +216,42 @@ export default function TopNav() {
               </Link>
             </li>
             <li>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant='ghost' className='w-full justify-start'>
+              <Drawer>
+                <DrawerTrigger asChild>
+                  <Button
+                    variant='ghost'
+                    className='flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium hover:bg-accent hover:text-accent-foreground'
+                  >
+                    <List className='h-4 w-4 inline-block' />
                     Categorías
                   </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className='w-56'>
-                  {categories.map((category) => (
-                    <DropdownMenuItem key={category.title}>
-                      <Link href='#' className='w-full'>
-                        {category.title}
+                </DrawerTrigger>
+                <DrawerContent className='h-[250px] w-full px-2'>
+                  <div className='flex flex-col items-center'>
+                    <DrawerHeader className='text-lg'>Categorías</DrawerHeader>
+                    <DrawerDescription>
+                      <p>Elige una categoría para ver sus productos.</p>
+                    </DrawerDescription>
+                  </div>
+                  <div className='grid grid-cols-2 gap-4 mt-4'>
+                    {categories.map((category) => (
+                      <Link
+                        key={category.title}
+                        href={category.href}
+                        className={buttonVariants({
+                          variant: 'outline',
+                          className:
+                            'bg-gray-50 rounded-lg flex items-center justify-center space-x-2 hover:bg-gray-200',
+                        })}
+                      >
+                        <span className='text-xl font-semibold'>
+                          {category.title}
+                        </span>
                       </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                    ))}
+                  </div>
+                </DrawerContent>
+              </Drawer>
             </li>
             <li>
               <Link
