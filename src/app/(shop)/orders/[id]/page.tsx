@@ -7,10 +7,46 @@ import { OrderStatus } from '@/components';
 import { Separator } from '@/components/ui/separator';
 import { RozPayDialog } from './ui/RozPayDialog';
 import { CheckCircle } from 'lucide-react';
+import { Metadata } from 'next';
 
 interface Props {
   params: {
     id: string;
+  };
+}
+
+// Implementación de metadata para la página de órdenes
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = params;
+  const { ok, order } = await getOrderById(id);
+
+  if (!ok) {
+    return {
+      title: 'Orden no encontrada',
+      description: 'La orden solicitada no existe o ha sido eliminada.',
+    };
+  }
+
+  return {
+    title: `Orden #${id.split('-').at(-1)}`,
+    description: `Resumen de la orden #${id.split('-').at(-1)} de ${
+      order?.OrderAddress?.firstName
+    } ${order?.OrderAddress?.lastName}.`,
+    openGraph: {
+      title: `Orden #${id.split('-').at(-1)}`,
+      description: `Revisa los detalles de la orden #${id.split('-').at(-1)}.`,
+      images: order?.OrderItem[0].product.ProductImage[0].url
+        ? [`/products/${order.OrderItem[0].product.ProductImage[0].url}`]
+        : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `Orden #${id.split('-').at(-1)}`,
+      description: `Detalles de la orden #${id.split('-').at(-1)}`,
+      images: order?.OrderItem[0].product.ProductImage[0].url
+        ? [`/products/${order.OrderItem[0].product.ProductImage[0].url}`]
+        : [],
+    },
   };
 }
 

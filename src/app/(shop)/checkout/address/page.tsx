@@ -1,10 +1,16 @@
-import { auth } from '@/auth.config';
+import { Metadata } from 'next';
 
-import { getProvinces, getUserAddress } from '@/actions';
+import prisma from '@/lib/prisma';
+
+import { getProvinces } from '@/actions';
 
 import { Title } from '@/components';
 import { AddressForm } from './ui/AddressForm';
-import prisma from '@/lib/prisma';
+
+export const metadata: Metadata = {
+  title: 'Dirección de entrega',
+  description: 'Dirección de entrega para el pago de la orden',
+};
 
 export default async function AddressPage() {
   const provinces = await getProvinces();
