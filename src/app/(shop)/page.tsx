@@ -22,6 +22,7 @@ interface Props {
     category?: string;
     brand?: string;
     order?: 'asc' | 'desc';
+    search?: string;
   };
 }
 
@@ -32,6 +33,7 @@ export default async function HomePage({ searchParams }: Props) {
   const category = searchParams.category;
   const brand = searchParams.brand;
   const order = searchParams.order as 'asc' | 'desc' | undefined;
+  const search = searchParams.search;
 
   const { products, currentPage, totalPages } =
     await getPaginatedProductsWithImages({
@@ -41,6 +43,7 @@ export default async function HomePage({ searchParams }: Props) {
       category,
       order,
       brand,
+      search,
     });
 
   if (products.length === 0) {

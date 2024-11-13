@@ -10,6 +10,7 @@ interface PaginationOptions {
   min_price?: number;
   max_price?: number;
   order?: 'asc' | 'desc';
+  search?: string;
 }
 
 export const getPaginatedProductsWithImages = async ({
@@ -20,6 +21,7 @@ export const getPaginatedProductsWithImages = async ({
   min_price,
   max_price,
   order = 'desc',
+  search = '',
 }: PaginationOptions) => {
   if (isNaN(Number(page))) page = 1;
   if (page < 1) page = 1;
@@ -28,6 +30,30 @@ export const getPaginatedProductsWithImages = async ({
     // Construir el objeto where para el filtro
     const where: any = {};
 
+    // Añadimos la lógica de búsqueda
+    if (search) {
+      where.OR = [
+        {
+          title: {
+            contains: search,
+            mode: 'insensitive',
+          },
+        },
+        {
+          description: {
+            contains: search,
+            mode: 'insensitive',
+          },
+        },
+        {
+          slug: {
+            contains: search,
+            mode: 'insensitive',
+          },
+        },
+      ];
+    }
+
     if (category && category !== 'all') {
       where.category = {
         name: category,
@@ -35,7 +61,6 @@ export const getPaginatedProductsWithImages = async ({
     }
 
     if (brand && brand !== 'all') {
-      // Primero obtenemos el ID de la marca usando el slug
       const brandData = await prisma.brand.findFirst({
         where: { slug: brand },
         select: { id: true },
@@ -67,7 +92,7 @@ export const getPaginatedProductsWithImages = async ({
             url: true,
           },
         },
-        category: true, // Incluimos la categoría en la consulta
+        category: true,
         condition: true,
         Color: true,
         Brand: true,
