@@ -39,18 +39,18 @@ export function RozPayDialog({
         <button disabled={isPaid} className={cn('p-[3px] relative w-full')}>
           <div
             className={cn(
-              'absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg',
+              'absolute inset-0 bg-gradient-to-r from-cyan-500 to-sky-700 rounded-lg',
               !isPaid && 'animate-pulse'
             )}
           />
-          <div className='px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-white hover:bg-transparent flex items-center justify-center'>
-            <Wallet className='w-4 h-4 mr-2' />
-            <p className='text-md font-light'>
-              Roz
-              <span className='bg-gradient-to-r from-rose-500 to-purple-500 inline-block text-transparent bg-clip-text font-bold hover:bg-gradient-to-r hover:from-rose-700 hover:to-purple-700'>
-                Pay
-              </span>
-            </p>
+          <div className='px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-white hover:bg-transparent flex items-center justify-center gap-1'>
+            <div className='flex items-center gap-1'>
+              <Wallet className='w-4 h-4 text-sky-200 group-hover:text-sky-800' />
+              <p className='text-md font-medium group-hover:text-black'>Roz</p>
+            </div>
+            <span className='bg-gradient-to-r from-cyan-500 to-sky-500 inline-block text-transparent bg-clip-text font-bold hover:bg-gradient-to-r group-hover:from-cyan-700 group-hover:to-sky-700'>
+              Pay
+            </span>
           </div>
         </button>
       </DialogTrigger>
@@ -61,7 +61,7 @@ export function RozPayDialog({
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.5 }}
         >
-          <DialogHeader className='bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 text-white p-6'>
+          <DialogHeader className='bg-gradient-to-r from-[#0478ad]  to-[#081633] text-white p-6'>
             <DialogTitle className='text-3xl font-bold'>RozPay</DialogTitle>
             <DialogDescription className='text-white flex items-center gap-2'>
               <span>Concreta tu pago de forma segura</span>

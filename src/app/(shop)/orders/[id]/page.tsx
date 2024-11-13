@@ -122,13 +122,13 @@ export default async function OrdersByIdPage({ params }: Props) {
                   />
                   <div className='px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-white hover:bg-transparent flex items-center justify-center gap-1'>
                     <p>Pago exitoso</p>
-                    <p className='text-md font-light'>
+                    <p className='text-md font-medium'>
                       Roz
-                      <span className='bg-gradient-to-r from-rose-500 to-purple-500 inline-block text-transparent bg-clip-text font-bold hover:bg-gradient-to-r hover:from-rose-700 hover:to-purple-700'>
+                      <span className='bg-gradient-to-r from-sky-500 to-cyan-500 group-hover:from-sky-700 group-hover:to-cyan-700 inline-block text-transparent bg-clip-text font-bold hover:bg-gradient-to-r hover:from-rose-700 hover:to-purple-700'>
                         Pay
                       </span>
                     </p>
-                    <CheckCircle className='w-4 h-4 text-green-500' />
+                    <CheckCircle className='w-4 h-4 text-green-500 group-hover:text-green-700' />
                   </div>
                 </button>
               ) : (
