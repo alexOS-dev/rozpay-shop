@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   },
   description: 'Tu tienda de confianza tecnológica',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/icon.ico',
   },
 };
 
