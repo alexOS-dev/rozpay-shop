@@ -34,6 +34,7 @@ export default async function HomePage({ searchParams }: Props) {
   const brand = searchParams.brand;
   const order = searchParams.order as 'asc' | 'desc' | undefined;
   const search = searchParams.search;
+  const freeShipping = searchParams.free_shipping === 'true';
 
   const { products, currentPage, totalPages } =
     await getPaginatedProductsWithImages({
@@ -44,6 +45,7 @@ export default async function HomePage({ searchParams }: Props) {
       order,
       brand,
       search,
+      free_shipping: freeShipping,
     });
 
   if (products.length === 0) {

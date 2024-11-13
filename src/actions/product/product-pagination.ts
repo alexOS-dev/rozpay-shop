@@ -11,6 +11,7 @@ interface PaginationOptions {
   max_price?: number;
   order?: 'asc' | 'desc';
   search?: string;
+  free_shipping?: boolean;
 }
 
 export const getPaginatedProductsWithImages = async ({
@@ -22,6 +23,7 @@ export const getPaginatedProductsWithImages = async ({
   max_price,
   order = 'desc',
   search = '',
+  free_shipping = false,
 }: PaginationOptions) => {
   if (isNaN(Number(page))) page = 1;
   if (page < 1) page = 1;
@@ -79,6 +81,10 @@ export const getPaginatedProductsWithImages = async ({
       if (max_price !== undefined) {
         where.price.lte = max_price;
       }
+    }
+
+    if (free_shipping) {
+      where.price = { gte: 40 };
     }
 
     // 1. Obtener los productos
