@@ -113,7 +113,7 @@ export const AddressForm = ({
                     placeholder='Nombre'
                     {...field}
                     value={field.value}
-                    disabled
+                    // disabled
                   />
                 </FormControl>
                 <FormMessage />
@@ -131,7 +131,7 @@ export const AddressForm = ({
                     placeholder='Apellido'
                     {...field}
                     value={field.value}
-                    disabled
+                    // disabled
                   />
                 </FormControl>
                 <FormMessage />

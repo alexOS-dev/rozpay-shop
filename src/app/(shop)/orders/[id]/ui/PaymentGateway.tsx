@@ -1,15 +1,6 @@
-'use client';
-
-import { rozpayCheckPayment } from '@/actions/payments/rozpay-check-payment';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -20,9 +11,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { motion } from 'framer-motion'; // Framer Motion for animation
+
 import { CheckCircle } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { rozpayCheckPayment } from '@/actions/payments/rozpay-check-payment';
 
 export type Props = {
   productName: string;
@@ -45,7 +36,7 @@ export const PaymentGateway = ({
   const [showSellerWallet, setShowSellerWallet] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [countdown, setCountdown] = useState(5); // Countdown timer
+  const [countdown, setCountdown] = useState(5);
 
   const walletOptions = [
     { value: 'binance', label: 'Binance Wallet' },
@@ -73,7 +64,7 @@ export const PaymentGateway = ({
     await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate network delay
     await rozpayCheckPayment(orderId);
     setIsLoading(false);
-    setIsSuccess(true); // Switch to success message
+    setIsSuccess(true);
   };
 
   useEffect(() => {
@@ -86,69 +77,57 @@ export const PaymentGateway = ({
     }
   }, [isSuccess, countdown]);
 
+  const isPaymentFormValid =
+    paymentMethod === 'credit-card'
+      ? true // Assume credit card form is always valid
+      : walletProvider !== '';
+
   return (
     <div className='container mx-auto p-4 bg-gray-50'>
       <Card className='w-full max-w-2xl mx-auto border border-gray-200 shadow-lg rounded-lg'>
-        {/* <CardHeader className='bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 text-white p-6'>
-          <CardTitle className='text-3xl font-bold'>RozPay</CardTitle>
-          <CardDescription className='mt-2 text-white'>
-            {isSuccess ? 'Payment Successful' : 'Continue with the payment'}
-          </CardDescription>
-        </CardHeader> */}
+        {isSuccess ? (
+          <CardContent className='p-6 text-center'>
+            <CheckCircle className='text-green-500 mx-auto mb-4' size={64} />
+            <h2 className='text-2xl font-bold text-green-600'>
+              ¡Pago realizado con éxito!
+            </h2>
+            <p className='mt-2 text-gray-600'>Redirigiendo en {countdown}...</p>
+          </CardContent>
+        ) : (
+          <CardContent className='p-6'>
+            <ProductDetails
+              name={productName}
+              description={productDescription}
+              price={productPrice}
+            />
+            <Tabs value={paymentMethod} onValueChange={handlePaymentChange}>
+              <TabsList className='grid w-full grid-cols-2'>
+                <TabsTrigger value='credit-card'>
+                  Tarjeta de crédito
+                </TabsTrigger>
+                <TabsTrigger value='crypto'>Criptomonedas</TabsTrigger>
+              </TabsList>
 
-        <motion.div
-          key={isSuccess ? 'success' : 'payment-form'}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5 }}
-        >
-          {isSuccess ? (
-            <CardContent className='p-6 text-center'>
-              <CheckCircle className='text-green-500 mx-auto mb-4' size={64} />
-              <h2 className='text-2xl font-bold text-green-600'>
-                ¡Pago realizado con éxito!
-              </h2>
-              <p className='mt-2 text-gray-600'>
-                Redirigiendo en {countdown}...
-              </p>
-            </CardContent>
-          ) : (
-            <CardContent className='p-6'>
-              <ProductDetails
-                name={productName}
-                description={productDescription}
-                price={productPrice}
-              />
-              <Tabs value={paymentMethod} onValueChange={handlePaymentChange}>
-                <TabsList className='grid w-full grid-cols-2'>
-                  <TabsTrigger value='credit-card'>
-                    Tarjeta de crédito
-                  </TabsTrigger>
-                  <TabsTrigger value='crypto'>Criptomonedas</TabsTrigger>
-                </TabsList>
+              <TabsContent value='credit-card'>
+                <PaymentForm />
+              </TabsContent>
 
-                <TabsContent value='credit-card'>
-                  <PaymentForm />
-                </TabsContent>
-
-                <TabsContent value='crypto'>
-                  <CryptoForm
-                    walletOptions={walletOptions}
-                    showSellerWallet={showSellerWallet}
-                    onWalletProviderChange={handleWalletProviderChange}
-                  />
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-          )}
-        </motion.div>
+              <TabsContent value='crypto'>
+                <CryptoForm
+                  walletOptions={walletOptions}
+                  showSellerWallet={showSellerWallet}
+                  onWalletProviderChange={handleWalletProviderChange}
+                />
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        )}
 
         {!isSuccess && (
           <CardFooter className='p-6'>
             <Button
               onClick={handlePaymentClick}
-              disabled={isLoading}
+              disabled={isLoading || !isPaymentFormValid}
               className='w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md'
             >
               {isLoading ? 'Procesando...' : 'Pagar con RozPay'}

@@ -45,17 +45,15 @@ export default async function OrdersByIdPage({ params }: Props) {
                 key={item.product.slug + '-' + item.color.id}
                 className='flex mb-5'
               >
-                <Image
-                  src={`/products/${item.product.ProductImage[0].url}`}
-                  width={100}
-                  height={100}
-                  style={{
-                    width: '100px',
-                    height: '100px',
-                  }}
-                  alt={item.product.title}
-                  className='mr-5 rounded object-cover'
-                />
+                <div className='w-40 h-40 mr-5'>
+                  <Image
+                    src={`/products/${item.product.ProductImage[0].url}`}
+                    width={160}
+                    height={160}
+                    alt={item.product.title}
+                    className='rounded object-cover'
+                  />
+                </div>
 
                 <div>
                   <p>{item.product.title}</p>

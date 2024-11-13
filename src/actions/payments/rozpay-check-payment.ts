@@ -14,7 +14,7 @@ export const rozpayCheckPayment = async (orderId: string) => {
     });
 
     // TODO: Revalidar un path
-    revalidatePath(`/orders/${orderId}`);
+    // revalidatePath(`/orders/${orderId}`);
 
     return {
       ok: true,
