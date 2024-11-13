@@ -15,23 +15,22 @@ export const ProductImage = ({
   className,
   style,
   width,
-  height
+  height,
 }: Props) => {
-
-  const localSrc = ( src ) 
+  const localSrc = src
     ? src.startsWith('http') // https://urlcompletodelaimagen.jpg
       ? src
-      : `/products/${ src }`
+      : `/products/${src}`
     : '/imgs/placeholder.jpg';
 
   return (
     <Image
-      src={ localSrc }
-      width={ width }
-      height={ height}
-      alt={ alt }
-      className={ className }
-      style={ style }
+      src={localSrc}
+      width={width}
+      height={height}
+      alt={alt}
+      className={className}
+      style={style}
     />
   );
 };

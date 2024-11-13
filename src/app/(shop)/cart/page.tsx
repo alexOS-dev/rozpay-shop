@@ -24,7 +24,6 @@ export const metadata: Metadata = {
 export default function CartPage() {
   return (
     <div className='flex flex-col min-h-screen'>
-      <p>Cart Page</p>
       <main className='flex-1 py-10 px-6'>
         <div className='container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8'>
           <div className='col-span-2 space-y-8'>
