@@ -251,6 +251,11 @@ export const initialData: SeedData = {
       name: 'google',
       slug: 'google',
     },
+    {
+      id: nanoid(),
+      name: 'caggy',
+      slug: 'caggy',
+    },
   ],
   products: [
     // {
