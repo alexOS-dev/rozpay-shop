@@ -64,7 +64,6 @@ export default async function ProductPage({ params }: Props) {
           <AddToCart product={product} />
         </div>
       </div>
-      {/* <pre>{JSON.stringify(product, null, 2)}</pre> */}
     </div>
   );
 }
