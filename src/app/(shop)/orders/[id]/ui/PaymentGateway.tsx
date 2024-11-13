@@ -36,7 +36,7 @@ export const PaymentGateway = ({
   const [showSellerWallet, setShowSellerWallet] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [countdown, setCountdown] = useState(5);
+  const [countdown, setCountdown] = useState(3);
 
   const walletOptions = [
     { value: 'binance', label: 'Binance Wallet' },
