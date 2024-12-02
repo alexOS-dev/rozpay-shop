@@ -6,8 +6,6 @@ import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import { Label } from '../ui/label';
 
 import type { BrandWithProductCount } from '@/interfaces';
-import { Button } from '../ui/button';
-import { Eraser } from 'lucide-react';
 
 interface Props {
   brands: BrandWithProductCount[];
